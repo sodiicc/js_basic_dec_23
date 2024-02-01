@@ -46,6 +46,7 @@ img {
 
 .left, .right {
   display: flex;
+  position: relative;
 }
 
 .game-field {
@@ -66,4 +67,14 @@ img {
 .btn-block {
   display: flex;
   justify-content: center;
+}
+
+.hero-name {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(5, 5, 5);
+  text-shadow: 0 0 4px white;
+  margin: 0;
 }
