@@ -2,6 +2,28 @@ function getRandRange(min, step) {
   return Math.ceil(Math.random() * step) + min
 }
 
+function setWinner(isLeft) {
+  alert(`${isLeft ? heroRight.name : heroLeft.name} is Winner`)
+  heroRight.startGame()
+  heroLeft.startGame()
+}
+
+const attackerParts = [
+  'головою',
+  'рукою',
+  'ногою',
+  'пальцем',
+  'носом',
+]
+
+const attackieParts = [
+  'голову',
+  'руку',
+  'ногу',
+  'палець',
+  'ніс',
+]
+
 class Hero {
   constructor(name, hp, className, img, str) {
     this.name = name
@@ -12,20 +34,50 @@ class Hero {
     this.str = str
   }
 
+  startGame() {
+    this.hp = this.maxHp
+    const hpText = document.querySelector(`.${this.className} .hp-text`)
+    const hpHeight = document.querySelector(`.${this.className} .hp`)
+    hpText.innerHTML = this.maxHp
+    hpHeight.style.height = `100%`
+  }
+
   setHp(isStart) {
     const isBlock = Math.random() < 0.3
     const value = (isStart || isBlock) ? 0 : this.str
     const hpText = document.querySelector(`.${this.className} .hp-text`)
     const hpHeight = document.querySelector(`.${this.className} .hp`)
+
+    const newHpValue = this.hp - value
     
-    const newValue = (this.hp - value < 0) ? 0 : (this.hp - value)
+    const newValue = (newHpValue < 0) ? 0 : newHpValue
     
     hpText.innerHTML = newValue
     hpHeight.style.height = `${newValue * 100 / this.maxHp || 2}%`
     this.hp -= value
-    setTimeout(() => {
-      if (isBlock) console.log(`${this.name} have blocked the damage !!!`)
-    }, 100)
+
+    if(!isBlock && !isStart) {
+      const logBlock = document.querySelector('.battle-log')
+      const logPostBlock = document.createElement('div')
+      const logPost = document.createElement('span')
+      const logPostImg = document.createElement('img')
+
+      logPostImg.src = this.img
+
+      logPost.innerText = `${this.name} наніс удар ${attackerParts[Math.floor(Math.random() * attackerParts.length)]} в ${attackieParts[Math.floor(Math.random() * attackieParts.length)]}, ${this.className === 'left' ? heroRight.name : heroLeft.name} плаче !`
+
+      logPostBlock.appendChild(logPostImg)
+      logPostBlock.appendChild(logPost)
+      logBlock.appendChild(logPostBlock)
+    }
+
+    if (newHpValue < 1) {
+      this.hp = this.maxHp
+      setWinner(this.className === 'left')
+    }
+    // setTimeout(() => {
+    //   if (isBlock) console.log(`${this.name} have blocked the damage !!!`)
+    // }, 100)
   }
 
   setName() {
@@ -52,9 +104,12 @@ hitBtn.addEventListener('click',() => {
   heroRight.setHp()
 })
 
+
+
 heroLeft.setHp(true)
 heroRight.setHp(true)
 heroRight.setName()
 heroLeft.setName()
 heroLeft.setImage()
+heroRight.setImage()
 

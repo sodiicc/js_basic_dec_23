@@ -78,3 +78,10 @@ img {
   text-shadow: 0 0 4px white;
   margin: 0;
 }
+
+.battle-log img {
+  height: 30px;
+  width: 20px;
+  object-fit: cover;
+  padding: 0.5rem;
+}
