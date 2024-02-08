@@ -1,0 +1,12 @@
+body, html {
+  background-color: rgb(183, 133, 245);
+}
+
+img {
+  height: 60px;
+  width: 40px;
+  object-fit: cover;
+  position: absolute;
+  top: 0; 
+  left: 0;
+}
