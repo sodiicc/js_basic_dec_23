@@ -1,0 +1,28 @@
+body, html {
+  background-color: rgb(176, 203, 127);
+}
+
+img {
+  height: 60px;
+  width: 40px;
+  object-fit: cover;
+  position: absolute;
+  top: 0; 
+  left: 0;
+}
+
+.red, .green, .blue {
+  padding: 2rem;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
